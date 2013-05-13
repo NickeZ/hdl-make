@@ -117,6 +117,7 @@ class ISEProject:
         self.add_property(ISEProjectProperty("Manual Implementation Compile Order", "true"))
         self.add_property(ISEProjectProperty("Auto Implementation Top", "false"))
         self.add_property(ISEProjectProperty("Implementation Top Instance Path", "/"+syn_top))
+        self.add_property(ISEProjectProperty("Create Binary Configuration File", "true"))
 
     def __parse_props(self):
         for xmlp in self.xml_project.getElementsByTagName("properties")[0].getElementsByTagName("property"):
