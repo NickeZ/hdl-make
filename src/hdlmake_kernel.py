@@ -28,6 +28,7 @@ from flow import ISEProject
 from flow_altera import QuartusProject
 from dep_solver import DependencySolver
 from srcfile import IDependable, SourceFileSet, SourceFileFactory
+from prj_writer import PrjWriter
 
 class HdlmakeKernel(object):
     def __init__(self, modules_pool, connection, options):
@@ -50,6 +51,8 @@ class HdlmakeKernel(object):
 
         if tm.action == "simulation":
             self.generate_modelsim_makefile()
+        elif tm.action == "isim":
+            self.generate_isim_makefile()
         elif tm.action == "synthesis":
             if tm.syn_project == None:
                 p.error("syn_project variable must be defined in the manfiest")
@@ -110,6 +113,37 @@ class HdlmakeKernel(object):
         flist = pool.build_global_file_list();
         flist_sorted = solver.solve(flist);
         self.make_writer.generate_modelsim_makefile(flist_sorted, top_module)
+
+    def generate_isim_makefile(self):
+        p.info("Generating Makefile for simulation.")
+        solver = DependencySolver()
+
+        pool = self.modules_pool
+        if not pool.is_everything_fetched():
+            p.echo("A module remains unfetched. "
+                "Fetching must be done prior to makefile generation")
+            p.echo(str([str(m) for m in self.modules_pool.modules if not m.isfetched]))
+            quit()
+        top_module = pool.get_top_module()
+        flist = pool.build_global_file_list()
+        flist_sorted = solver.solve(flist)
+        prj_writer = PrjWriter()
+        try:
+            prj_writer.open("%s_vhdl.prj" % top_module.testbench)
+        except (e, Exception):
+            p.echo(e)
+            exit(-1)
+        prj_writer.generate_vhdl_prj(flist)
+        prj_writer.close()
+        try:
+            prj_writer.open("%s_vl.prj" % top_module.testbench)
+        except (e, Exception):
+            p.echo(e)
+            exit(-1)
+        prj_writer.generate_vl_prj(flist)
+        prj_writer.close()
+        
+        self.make_writer.generate_isim_makefile(flist_sorted, top_module)
 
     def generate_ise_makefile(self):
         p.info("Generating makefile for local synthesis.")

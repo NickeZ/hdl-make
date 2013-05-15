@@ -66,6 +66,7 @@ class ManifestParser(ConfigParser):
         self.add_option('vmap_opt', default="", help="Additional options for vmap", type='')
 
         self.add_delimiter()
+        self.add_option('testbench', default={}, help="Name of the testbench to run", type='')
         self.add_option('modules', default={}, help="List of local modules", type={})
         self.add_option('target', default=None, help="What is the target architecture", type='')
         self.add_option('action', default=None, help="What is the action that should be taken (simulation/synthesis)", type='')

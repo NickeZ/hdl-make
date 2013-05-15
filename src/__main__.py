@@ -39,6 +39,9 @@ def main():
     parser.add_option("--make-sim", dest="make_sim", action="store_true",
     default=None, help="generate a simulation Makefile")
 
+    parser.add_option("--make-isim", dest="make_isim", action="store_true",
+    default=None, help="generate a prj and makefile for local ISIM simulation")
+
     parser.add_option("--make-fetch", dest="make_fetch", action="store_true",
     default=None, help="generate a makefile for modules' fetching")
 
@@ -131,6 +134,7 @@ def main():
         "remote": "run_remote_synthesis",
         "make_fetch": "generate_fetch_makefile",
         "make_ise" : "generate_ise_makefile",
+        "make_isim" : "generate_isim_makefile",
         "make_remote" : "generate_remote_synthesis_makefile",
         "list" : "list_modules",
         "clean" : "clean_modules",

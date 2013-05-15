@@ -279,6 +279,7 @@ class Module(object):
 
         self.target = opt_map["target"]
         self.action = opt_map["action"]
+        self.testbench = opt_map["testbench"]
 
         if opt_map["syn_name"] == None and opt_map["syn_project"] != None:
             self.syn_name = opt_map["syn_project"][:-5] #cut out .xise from the end

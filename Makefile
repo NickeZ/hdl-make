@@ -18,7 +18,7 @@
 SRC_FILES := configparser.py connection.py dep_solver.py fetch.py\
 flow.py flow_altera.py global_mod.py hdlmake_kernel.py\
 __main__.py makefile_writer.py manifest_parser.py module.py msg.py path.py \
-srcfile.py vlog_parser.py new_dep_solver.py
+srcfile.py vlog_parser.py new_dep_solver.py prj_writer.py
 SRC_DIR := src
 
 SRC := $(foreach src, $(SRC_FILES), $(SRC_DIR)/$(src))
