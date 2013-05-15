@@ -25,6 +25,7 @@ SRC := $(foreach src, $(SRC_FILES), $(SRC_DIR)/$(src))
 TAG = $(shell git describe --abbrev=0 --tags --always)#get the latest tag
 RELEASE = hdlmake-$(TAG).tar.gz
 EXEC := hdlmake
+PREFIX := /usr/local/bin
 
 executable: $(EXEC)
 $(EXEC): $(SRC)
@@ -40,6 +41,12 @@ $(EXEC): $(SRC)
 release: $(RELEASE)
 $(RELEASE): $(EXEC) $(SRC)
 	tar -zcvf $@ *
+
+install: executable
+	cp hdlmake $(PREFIX)/
+
+uninstall:
+	rm -f $(PREFIX)/hdlmake
 
 .PHONY: clean
 
