@@ -44,14 +44,11 @@ class MakefileWriter(object):
         else:
             pass
 
-    def write(self, line=None):
+    def write(self, line=''):
         self._file.write(line)
 
-    def writeln(self, text=None):
-        if text == None:
-            self._file.write("\n")
-        else:
-            self._file.write(text+"\n")
+    def writeln(self, text=''):
+        self._file.write("%s\n" % text)
 
     def reset_file(self, filename):
         self._file.close()
