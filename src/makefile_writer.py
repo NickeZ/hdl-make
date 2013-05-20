@@ -380,7 +380,7 @@ clean:
         self.writeln()
         self.writeln('clean:')
         self.writeln('\trm -rf isim')
-        self.writeln('\trm -f fuse.log fuseRelaunch.cmd fuse.xmsgs *.prj isim.log isim.wdb')
+        self.writeln('\trm -f fuse.log fuseRelaunch.cmd fuse.xmsgs isim.log isim.wdb')
         self.writeln()
         self.writeln('cleaner: clean')
         self.writeln('\trm -f $(TESTBENCH)')
