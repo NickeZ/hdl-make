@@ -351,7 +351,7 @@ clean:
 
     def generate_isim_makefile(self, fileset, top_module):
         self.initialize()
-        self.writeln('TESTBENCH := xsgb_tmr_tb')
+        self.writeln('TESTBENCH := %s' % top_module.testbench)
         self.writeln('FUSE := fuse')
         self.writeln('VHDL := vhpcomp')
         self.writeln('VERILOG := vlogcomp')
