@@ -189,7 +189,9 @@ class HdlmakeKernel(object):
             p.echo(str([str(m) for m in self.modules_pool if not m.isfetched]))
             quit()
         ise = self.__check_ise_version()
-        if os.path.exists(self.top_module.syn_project):
+        if not self.top_module.syn_project:
+            p.error("No top module defined")
+        elif os.path.exists(self.top_module.syn_project):
             self.__update_existing_ise_project(ise=ise)
         else:
             self.__create_new_ise_project(ise=ise)
